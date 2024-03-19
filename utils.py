@@ -18,7 +18,7 @@ def to_device(data, device):
     if isinstance(data, (list,tuple)):
         return [to_device(x, device) for x in data]
     return data.to(device, non_blocking=True)
-    
+#损失函数图
 def plot_history(history):
     losses1 = [x['val_loss1'] for x in history]
     losses2 = [x['val_loss2'] for x in history]
