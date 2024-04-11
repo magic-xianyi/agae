@@ -121,9 +121,6 @@ def SOA(pop, dim, lb, ub, MaxIter, fun):
         fitness = CaculateFitness(X, fun)  # 计算适应度值
         fitness, sortIndex = SortFitness(fitness)  # 对适应度值排序
         X = SortPosition(X, sortIndex)  # 种群排序
-        """
-        这里其实就是解，GbestPositon就是我们需要的解向量，各列代表各个变量的解，GbestScore为相应场景下适应度函数的得分，我们根据GbestPositon拿出各个变量的值即可
-        """
         if (fitness[0] <= GbestScore):  # 更新全局最优
             GbestScore = copy.copy(fitness[0])
             GbestPositon[0, :] = copy.copy(X[0, :])
@@ -132,13 +129,11 @@ def SOA(pop, dim, lb, ub, MaxIter, fun):
     return GbestScore, GbestPositon, Curve
 
 
-'''适应度函数'''
+'''适应度函数，需要吧X的超参数放到模型中，然后训练，返回测试结果的F1score'''
 def fun(X):
     O = X[0] ** 2 + X[1] ** 2
     return O
 
-
-'''海鸥优化算法求解x1^2 + x2^2的最小值'''
 '''主函数 '''
 if __name__ == '__main__':
     # 设置参数
